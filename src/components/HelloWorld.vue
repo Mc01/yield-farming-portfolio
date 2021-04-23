@@ -1,21 +1,21 @@
 <template>
   <p>
-    Account: {{ state.accountAddress }}<br/>
+    <b>Total</b>:
     {{ state.totalUsd }} USD |
     {{ state.totalPln }} PLN
   </p>
   <p>
-    Balance: {{ state.bnbBalance }} BNB |
+    <b>Balance</b>: {{ state.bnbBalance }} BNB |
     {{ state.bnbUsdBalance }} USD |
     {{ state.bnbUsdRate }} USD
   </p>
   <p>
-    Cake: {{ state.cakeBalance }} CAKE |
+    <b>Cake</b>: {{ state.cakeBalance }} CAKE |
     {{ state.cakeUsdBalance }} USD |
     {{ state.cakeUsdRate }} USD
   </p>
   <p>
-    Horizon: {{ state.hznBalance }} HZN + {{ state.hznEarned }} HZN |
+    <b>Horizon</b>: {{ state.hznBalance }} HZN + {{ state.hznEarned }} HZN |
     {{ state.hznUsdBalance }} USD |
     {{ state.hznUsdRate }} USD
   </p>
