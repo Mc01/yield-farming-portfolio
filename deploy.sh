@@ -8,6 +8,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:Mc01/codewars-ranking.git master:gh-pages
+git push -f git@github.com:Mc01/yield-farming-portfolio.git master:gh-pages
 
 cd -
