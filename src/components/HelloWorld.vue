@@ -79,8 +79,12 @@ provider.getBalance(accountAddress).then(
         parseFloat(state.bnbBalance) * parseFloat(state.bnbUsdRate)
       ).toFixed(2)
 
-      state.totalUsd += parseFloat(state.bnbUsdBalance)
-      state.totalPln = (state.totalUsd * usdPln).toFixed(2)
+      state.totalUsd = (
+        parseFloat(state.totalUsd) + parseFloat(state.bnbUsdBalance)
+      ).toFixed(2)
+      state.totalPln = parseFloat(
+        state.totalUsd * usdPln
+      ).toFixed(2)
     })
   }
 )
@@ -97,8 +101,12 @@ cakeContract.balanceOf(accountAddress).then(
         parseFloat(state.cakeBalance) * parseFloat(state.cakeUsdRate)
       ).toFixed(2)
 
-      state.totalUsd += parseFloat(state.cakeUsdBalance)
-      state.totalPln = (state.totalUsd * usdPln).toFixed(2)
+      state.totalUsd = (
+        parseFloat(state.totalUsd) + parseFloat(state.cakeUsdBalance)
+      ).toFixed(2)
+      state.totalPln = parseFloat(
+        state.totalUsd * usdPln
+      ).toFixed(2)
     })
   }
 )
@@ -123,8 +131,12 @@ hznContract.balanceOf(accountAddress).then(
             ) * parseFloat(state.hznUsdRate)
           ).toFixed(2)
 
-          state.totalUsd += parseFloat(state.hznUsdBalance)
-          state.totalPln = (state.totalUsd * usdPln).toFixed(2)
+          state.totalUsd = (
+            parseFloat(state.totalUsd) + parseFloat(state.hznUsdBalance)
+          ).toFixed(2)
+          state.totalPln = parseFloat(
+            state.totalUsd * usdPln
+          ).toFixed(2)
         })
       }
     )
