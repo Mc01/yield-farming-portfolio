@@ -45,6 +45,12 @@
     {{ state.cake.plnBalance }} PLN
   </p>
   <p>
+    <b>Auto</b>: {{ state.auto.cake }} CAKE + {{ state.auto.earned }} AUTO |
+    {{ state.auto.usdRate }} USD |
+    {{ state.auto.usdBalance }} USD |
+    {{ state.auto.plnBalance }} PLN
+  </p>
+  <p>
     <b>Horizon</b>: {{ state.hzn.balance }} HZN + {{ state.hzn.earned }} HZN |
     {{ state.hzn.usdRate }} USD |
     {{ state.hzn.usdBalance }} USD |
@@ -88,10 +94,10 @@ function get_price(coinId, base='usd') {
   )
 }
 
-function formatCrypto(crypto) {
+function formatCrypto(crypto, digits=4) {
   return parseFloat(
     ethers.utils.formatEther(crypto)
-  ).toFixed(4)
+  ).toFixed(digits)
 }
 
 function formatUsd(response, key) {
@@ -151,11 +157,14 @@ const cakeAddress = '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82'
 const cakeAbi = ['function balanceOf(address) view returns (uint)']
 const cakeStakeAddress = '0x73feaa1ee314f8c655e354234017be2193c9e24e'
 const cakeStakeAbi = ['function userInfo(uint, address) view returns (uint)', 'function pendingCake(uint, address) view returns (uint)']
+const autoAddress = '0x0895196562c7868c5be92459fae7f877ed450452'
+const autoAbi = ['function stakedWantTokens(uint, address) view returns (uint)', 'function pendingAUTO(uint, address) view returns (uint)']
 const hznAddress = '0x67D5a94F444DF4bBA254645065a4137fc665Bf98'
 const hznAbi = ['function balanceOf(address) view returns (uint)', 'function earned(address) view returns (uint)']
 
 const cakeContract = new ethers.Contract(cakeAddress, cakeAbi, provider)
 const cakeStakeContract = new ethers.Contract(cakeStakeAddress, cakeStakeAbi, provider)
+const autoContract = new ethers.Contract(autoAddress, autoAbi, provider)
 const hznContract = new ethers.Contract(hznAddress, hznAbi, provider)
 
 const state = reactive({
@@ -196,6 +205,13 @@ const state = reactive({
   cake: {
     balance: '',
     stake: '',
+    earned: '',
+    usdRate: '',
+    usdBalance: '',
+    plnBalance: '',
+  },
+  auto: {
+    cake: '',
     earned: '',
     usdRate: '',
     usdBalance: '',
@@ -257,31 +273,52 @@ cakeContract.balanceOf(accountAddress).then(
     state.cake.balance = formatCrypto(result)
 
     cakeStakeContract.userInfo(0, accountAddress).then(
-        (result) => {
-          state.cake.stake = formatCrypto(result)
+      (result) => {
+        state.cake.stake = formatCrypto(result)
 
-          cakeStakeContract.pendingCake(0, accountAddress).then(
+        cakeStakeContract.pendingCake(0, accountAddress).then(
+          (result) => {
+            state.cake.earned = formatCrypto(result)
+
+            autoContract.stakedWantTokens(7, accountAddress).then(
               (result) => {
-                state.cake.earned = formatCrypto(result)
+                state.auto.cake = formatCrypto(result)
 
                 get_price('pancakeswap-token').then((response) => {
                   state.cake.usdRate = formatUsd(response, 'pancakeswap-token')
                   state.cake.usdBalance = mulUsd(
-                      (
-                          parseFloat(state.cake.balance) +
-                          parseFloat(state.cake.stake) +
-                          parseFloat(state.cake.earned)
-                      ),
-                      state.cake.usdRate,
+                    (
+                        parseFloat(state.cake.balance) +
+                        parseFloat(state.cake.stake) +
+                        parseFloat(state.cake.earned) +
+                        parseFloat(state.auto.cake)
+                    ),
+                    state.cake.usdRate,
                   )
                   state.cake.plnBalance = mulPln(state.cake.usdBalance)
 
                   recalculateTotal(state.cake.usdBalance)
                 })
               }
-          )
-        }
+            )
+          }
+        )
+      }
     )
+  }
+)
+
+autoContract.pendingAUTO(7, accountAddress).then(
+  (result) => {
+    state.auto.earned = formatCrypto(result, 6)
+
+    get_price('auto').then((response) => {
+      state.auto.usdRate = formatUsd(response, 'auto')
+      state.auto.usdBalance = mulUsd(state.auto.earned, state.auto.usdRate)
+      state.auto.plnBalance = mulPln(state.auto.usdBalance)
+
+      recalculateTotal(state.auto.usdBalance)
+    })
   }
 )
 
