@@ -2,78 +2,94 @@
   <hr/>
   <p>
     <b>ETH</b>:
-    {{ state.total.eth.usd }} USD |
-    {{ state.total.eth.pln }} PLN
+    <span class="balance">{{ state.total.eth.usd }}</span> USD |
+    <span class="balance">{{ state.total.eth.pln }}</span> PLN
   </p>
   <p>
     <b>BSC</b>:
-    {{ state.total.bsc.usd }} USD |
-    {{ state.total.bsc.pln }} PLN
+    <span class="balance">{{ state.total.bsc.usd }}</span> USD |
+    <span class="balance">{{ state.total.bsc.pln }}</span> PLN
   </p>
   <p>
     <b>BN1</b>:
-    {{ state.total.bn1.usd }} USD |
-    {{ state.total.bn1.pln }} PLN
+    <span class="balance">{{ state.total.bn1.usd }}</span> USD |
+    <span class="balance">{{ state.total.bn1.pln }}</span> PLN
   </p>
   <p>
     <b>BN2</b>:
-    {{ state.total.bn2.usd }} USD |
-    {{ state.total.bn2.pln }} PLN
+    <span class="balance">{{ state.total.bn2.usd }}</span> USD |
+    <span class="balance">{{ state.total.bn2.pln }}</span> PLN
   </p>
   <p>
     <b>Total</b>:
-    {{ state.total.total.usd }} USD |
-    {{ state.total.total.pln }} PLN
+    <span class="balance">{{ state.total.total.usd }}</span> USD |
+    <span class="balance">{{ state.total.total.pln }}</span> PLN
   </p>
   <hr/>
   <p>
     <b>Ether</b>: {{ state.eth.balance }} ETH |
-    {{ state.eth.usdRate }} USD |
-    {{ state.eth.usdBalance }} USD |
-    {{ state.eth.plnBalance }} PLN
+    <span class="rate">{{ state.eth.usdRate }}</span> USD |
+    <span class="change">{{ state.eth.change7 }}%</span> 7d |
+    <span class="change">{{ state.eth.change24 }}%</span> 24h |
+    <span class="balance">{{ state.eth.usdBalance }}</span> USD |
+    <span class="balance">{{ state.eth.plnBalance }}</span> PLN
   </p>
   <p>
     <b>BNB</b>: {{ state.bnb.balance }} BNB |
-    {{ state.bnb.usdRate }} USD |
-    {{ state.bnb.usdBalance }} USD |
-    {{ state.bnb.plnBalance }} PLN
+    <span class="rate">{{ state.bnb.usdRate }}</span> USD |
+    <span class="change">{{ state.bnb.change7 }}%</span> 7d |
+    <span class="change">{{ state.bnb.change24 }}%</span> 24h |
+    <span class="balance">{{ state.bnb.usdBalance }}</span> USD |
+    <span class="balance">{{ state.bnb.plnBalance }}</span> PLN
   </p>
   <p>
     <b>Cake</b>: {{ state.cake.balance }} CAKE + {{ state.cake.stake }} CAKE + {{ state.cake.earned }} CAKE |
-    {{ state.cake.usdRate }} USD |
-    {{ state.cake.usdBalance }} USD |
-    {{ state.cake.plnBalance }} PLN
+    <span class="rate">{{ state.cake.usdRate }}</span> USD |
+    <span class="change">{{ state.cake.change7 }}%</span> 7d |
+    <span class="change">{{ state.cake.change24 }}%</span> 24h |
+    <span class="balance">{{ state.cake.usdBalance }}</span> USD |
+    <span class="balance">{{ state.cake.plnBalance }}</span> PLN
   </p>
   <p>
     <b>Auto</b>: {{ state.auto.cake }} CAKE + {{ state.auto.earned }} AUTO |
-    {{ state.auto.usdRate }} USD |
-    {{ state.auto.usdBalance }} USD |
-    {{ state.auto.plnBalance }} PLN
+    <span class="rate">{{ state.auto.usdRate }}</span> USD |
+    <span class="change">{{ state.auto.change7 }}%</span> 7d |
+    <span class="change">{{ state.auto.change24 }}%</span> 24h |
+    <span class="balance">{{ state.auto.usdBalance }}</span> USD |
+    <span class="balance">{{ state.auto.plnBalance }}</span> PLN
   </p>
   <p>
     <b>Horizon</b>: {{ state.hzn.balance }} HZN + {{ state.hzn.earned }} HZN |
-    {{ state.hzn.usdRate }} USD |
-    {{ state.hzn.usdBalance }} USD |
-    {{ state.hzn.plnBalance }} PLN
+    <span class="rate">{{ state.hzn.usdRate }}</span> USD |
+    <span class="change">{{ state.hzn.change7 }}%</span> 7d |
+    <span class="change">{{ state.hzn.change24 }}%</span> 24h |
+    <span class="balance">{{ state.hzn.usdBalance }}</span> USD |
+    <span class="balance">{{ state.hzn.plnBalance }}</span> PLN
   </p>
   <hr/>
   <p>
     <b>Atom</b>: {{ state.atom.balance }} ATOM + {{ state.atom.earned }} ATOM |
-    {{ state.atom.usdRate }} USD |
-    {{ state.atom.usdBalance }} USD |
-    {{ state.atom.plnBalance }} PLN
+    <span class="rate">{{ state.atom.usdRate }}</span> USD |
+    <span class="change">{{ state.atom.change7 }}%</span> 7d |
+    <span class="change">{{ state.atom.change24 }}%</span> 24h |
+    <span class="balance">{{ state.atom.usdBalance }}</span> USD |
+    <span class="balance">{{ state.atom.plnBalance }}</span> PLN
   </p>
   <p>
     <b>Dot BN1</b>: {{ state.dot.balance }} DOT + {{ state.dot.earned }} DOT |
-    {{ state.dot.usdRate }} USD |
-    {{ state.dot.usdBalance }} USD |
-    {{ state.dot.plnBalance }} PLN
+    <span class="rate">{{ state.dot.usdRate }}</span> USD |
+    <span class="change">{{ state.dot.change7 }}%</span> 7d |
+    <span class="change">{{ state.dot.change24 }}%</span> 24h |
+    <span class="balance">{{ state.dot.usdBalance }}</span> USD |
+    <span class="balance">{{ state.dot.plnBalance }}</span> PLN
   </p>
   <p>
     <b>Dot BN2</b>: {{ state.dot.extra.balance }} DOT + {{ state.dot.extra.earned }} DOT |
-    {{ state.dot.usdRate }} USD |
-    {{ state.dot.extra.usdBalance }} USD |
-    {{ state.dot.extra.plnBalance }} PLN
+    <span class="rate">{{ state.dot.usdRate }}</span> USD |
+    <span class="change">{{ state.dot.change7 }}%</span> 7d |
+    <span class="change">{{ state.dot.change24 }}%</span> 24h |
+    <span class="balance">{{ state.dot.extra.usdBalance }}</span> USD |
+    <span class="balance">{{ state.dot.extra.plnBalance }}</span> PLN
   </p>
 </template>
 
@@ -94,6 +110,10 @@ function get_price(coinId, base='usd') {
   )
 }
 
+function get_tickers(coinId) {
+  return axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}`)
+}
+
 function formatCrypto(crypto, digits=4) {
   return parseFloat(
     ethers.utils.formatEther(crypto)
@@ -104,6 +124,10 @@ function formatUsd(response, key) {
   return parseFloat(
     response.data[key]['usd']
   ).toFixed(2)
+}
+
+function formatPercentage(percentage) {
+  return parseFloat(percentage).toFixed(2)
 }
 
 function mulUsd(left, right) {
@@ -193,12 +217,16 @@ const state = reactive({
   eth: {
     balance: '0.1239',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
   bnb: {
     balance: '',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
@@ -207,6 +235,8 @@ const state = reactive({
     stake: '',
     earned: '',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
@@ -214,6 +244,8 @@ const state = reactive({
     cake: '',
     earned: '',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
@@ -221,6 +253,8 @@ const state = reactive({
     balance: '',
     earned: '',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
@@ -228,6 +262,8 @@ const state = reactive({
     balance: '10.0',
     earned: '0.0903',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
   },
@@ -235,6 +271,8 @@ const state = reactive({
     balance: '8.6272',
     earned: '0.1071',
     usdRate: '',
+    change7: '',
+    change24: '',
     usdBalance: '',
     plnBalance: '',
     extra: {
@@ -252,6 +290,12 @@ get_price('ethereum').then((response) => {
   state.eth.plnBalance = mulPln(state.eth.usdBalance)
 
   recalculateTotal(state.eth.usdBalance, 'eth')
+
+  get_tickers('ethereum').then((response) => {
+    let market_data = response.data['market_data']
+    state.eth.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+    state.eth.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+  })
 })
 
 provider.getBalance(accountAddress).then(
@@ -264,6 +308,12 @@ provider.getBalance(accountAddress).then(
       state.bnb.plnBalance = mulPln(state.bnb.usdBalance)
 
       recalculateTotal(state.bnb.usdBalance)
+    })
+
+    get_tickers('binancecoin').then((response) => {
+      let market_data = response.data['market_data']
+      state.bnb.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+      state.bnb.change24 = formatPercentage(market_data['price_change_percentage_24h'])
     })
   }
 )
@@ -298,6 +348,12 @@ cakeContract.balanceOf(accountAddress).then(
                   state.cake.plnBalance = mulPln(state.cake.usdBalance)
 
                   recalculateTotal(state.cake.usdBalance)
+
+                  get_tickers('pancakeswap-token').then((response) => {
+                    let market_data = response.data['market_data']
+                    state.cake.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+                    state.cake.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+                  })
                 })
               }
             )
@@ -318,6 +374,12 @@ autoContract.pendingAUTO(7, accountAddress).then(
       state.auto.plnBalance = mulPln(state.auto.usdBalance)
 
       recalculateTotal(state.auto.usdBalance)
+
+      get_tickers('binancecoin').then((response) => {
+        let market_data = response.data['market_data']
+        state.auto.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+        state.auto.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+      })
     })
   }
 )
@@ -339,6 +401,12 @@ hznContract.balanceOf(accountAddress).then(
           state.hzn.plnBalance = mulPln(state.hzn.usdBalance)
 
           recalculateTotal(state.hzn.usdBalance)
+
+          get_tickers('horizon-protocol').then((response) => {
+            let market_data = response.data['market_data']
+            state.hzn.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+            state.hzn.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+          })
         })
       }
     )
@@ -354,6 +422,12 @@ get_price('cosmos').then((response) => {
   state.atom.plnBalance = mulPln(state.atom.usdBalance)
 
   recalculateTotal(state.atom.usdBalance, 'bn1')
+
+  get_tickers('cosmos').then((response) => {
+    let market_data = response.data['market_data']
+    state.atom.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+    state.atom.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+  })
 })
 
 get_price('polkadot').then((response) => {
@@ -371,11 +445,25 @@ get_price('polkadot').then((response) => {
 
   recalculateTotal(state.dot.usdBalance, 'bn1')
   recalculateTotal(state.dot.extra.usdBalance, 'bn2')
+
+  get_tickers('polkadot').then((response) => {
+    let market_data = response.data['market_data']
+    state.dot.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+    state.dot.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+  })
 })
 </script>
 
 <style scoped>
-a {
-  color: #42b983;
+.change {
+  color: red;
+}
+
+.balance {
+  color: green;
+}
+
+.rate {
+  color: blue;
 }
 </style>
