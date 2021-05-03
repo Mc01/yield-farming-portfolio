@@ -43,12 +43,20 @@
     <span class="balance">{{ state.bnb.plnBalance }}</span> PLN
   </p>
   <p>
-    <b>Cake</b>: {{ state.cake.balance }} CAKE + {{ state.cake.stake }} CAKE + {{ state.cake.earned }} CAKE |
+    <b>Cake V2</b>: {{ state.cake.balance }} CAKE + {{ state.cake.stakeV2 }} CAKE + {{ state.cake.earnedV2 }} CAKE |
     <span class="rate">{{ state.cake.usdRate }}</span> USD |
     <span class="change">{{ state.cake.change7 }}%</span> 7d |
     <span class="change">{{ state.cake.change24 }}%</span> 24h |
     <span class="balance">{{ state.cake.usdBalance }}</span> USD |
     <span class="balance">{{ state.cake.plnBalance }}</span> PLN
+  </p>
+  <p>
+    <b>Cake V1</b>: {{ state.cake.stake }} CAKE + {{ state.cake.earned }} CAKE |
+    <span class="rate">{{ state.cake.usdRate }}</span> USD |
+    <span class="change">{{ state.cake.change7 }}%</span> 7d |
+    <span class="change">{{ state.cake.change24 }}%</span> 24h |
+    <span class="balance">{{ state.cake.usdBalanceV1 }}</span> USD |
+    <span class="balance">{{ state.cake.plnBalanceV1 }}</span> PLN
   </p>
   <p>
     <b>Auto</b>: {{ state.auto.cake }} CAKE + {{ state.auto.earned }} AUTO |
@@ -68,7 +76,7 @@
   </p>
   <hr/>
   <p>
-    <b>Atom</b>: {{ state.atom.balance }} ATOM + {{ state.atom.earned }} ATOM |
+    <b>Atom BN</b>: {{ state.atom.balance }} ATOM + {{ state.atom.earned }} ATOM |
     <span class="rate">{{ state.atom.usdRate }}</span> USD |
     <span class="change">{{ state.atom.change7 }}%</span> 7d |
     <span class="change">{{ state.atom.change24 }}%</span> 24h |
@@ -90,6 +98,22 @@
     <span class="change">{{ state.dot.change24 }}%</span> 24h |
     <span class="balance">{{ state.dot.extra.usdBalance }}</span> USD |
     <span class="balance">{{ state.dot.extra.plnBalance }}</span> PLN
+  </p>
+  <p>
+    <b>Cake BN</b>: {{ state.cake.extra.balance }} CAKE |
+    <span class="rate">{{ state.cake.usdRate }}</span> USD |
+    <span class="change">{{ state.cake.change7 }}%</span> 7d |
+    <span class="change">{{ state.cake.change24 }}%</span> 24h |
+    <span class="balance">{{ state.cake.extra.usdBalance }}</span> USD |
+    <span class="balance">{{ state.cake.extra.plnBalance }}</span> PLN
+  </p>
+  <p>
+    <b>0x BN</b>: {{ state.zrx.balance }} ZRX |
+    <span class="rate">{{ state.zrx.usdRate }}</span> USD |
+    <span class="change">{{ state.zrx.change7 }}%</span> 7d |
+    <span class="change">{{ state.zrx.change24 }}%</span> 24h |
+    <span class="balance">{{ state.zrx.usdBalance }}</span> USD |
+    <span class="balance">{{ state.zrx.plnBalance }}</span> PLN
   </p>
 </template>
 
@@ -181,6 +205,8 @@ const cakeAddress = '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82'
 const cakeAbi = ['function balanceOf(address) view returns (uint)']
 const cakeStakeAddress = '0x73feaa1ee314f8c655e354234017be2193c9e24e'
 const cakeStakeAbi = ['function userInfo(uint, address) view returns (uint)', 'function pendingCake(uint, address) view returns (uint)']
+const cakeStakeV2Address = '0xa80240eb5d7e05d3f250cf000eec0891d00b51cc'
+const cakeStakeV2Abi = ['function userInfo(address) view returns (uint, uint, uint, uint)', 'function getPricePerFullShare() view returns (uint)']
 const autoAddress = '0x0895196562c7868c5be92459fae7f877ed450452'
 const autoAbi = ['function stakedWantTokens(uint, address) view returns (uint)', 'function pendingAUTO(uint, address) view returns (uint)']
 const hznAddress = '0x67D5a94F444DF4bBA254645065a4137fc665Bf98'
@@ -188,6 +214,7 @@ const hznAbi = ['function balanceOf(address) view returns (uint)', 'function ear
 
 const cakeContract = new ethers.Contract(cakeAddress, cakeAbi, provider)
 const cakeStakeContract = new ethers.Contract(cakeStakeAddress, cakeStakeAbi, provider)
+const cakeStakeV2Contract = new ethers.Contract(cakeStakeV2Address, cakeStakeV2Abi, provider)
 const autoContract = new ethers.Contract(autoAddress, autoAbi, provider)
 const hznContract = new ethers.Contract(hznAddress, hznAbi, provider)
 
@@ -233,12 +260,21 @@ const state = reactive({
   cake: {
     balance: '',
     stake: '',
+    stakeV2: '',
     earned: '',
+    earnedV2: '',
     usdRate: '',
     change7: '',
     change24: '',
     usdBalance: '',
     plnBalance: '',
+    usdBalanceV1: '',
+    plnBalanceV1: '',
+    extra: {
+      balance: '4.2167',
+      usdBalance: '',
+      plnBalance: '',
+    }
   },
   auto: {
     cake: '',
@@ -259,8 +295,8 @@ const state = reactive({
     plnBalance: '',
   },
   atom: {
-    balance: '10.0',
-    earned: '0.0903',
+    balance: '0',
+    earned: '0',
     usdRate: '',
     change7: '',
     change24: '',
@@ -268,8 +304,8 @@ const state = reactive({
     plnBalance: '',
   },
   dot: {
-    balance: '8.6272',
-    earned: '0.1071',
+    balance: '0',
+    earned: '0',
     usdRate: '',
     change7: '',
     change24: '',
@@ -277,10 +313,18 @@ const state = reactive({
     plnBalance: '',
     extra: {
       balance: '21.2986',
-      earned: '0.4054',
+      earned: '0.4975',
       usdBalance: '',
       plnBalance: '',
     }
+  },
+  zrx: {
+    balance: '78.7012',
+    usdRate: '',
+    change7: '',
+    change24: '',
+    usdBalance: '',
+    plnBalance: '',
   },
 })
 
@@ -334,27 +378,68 @@ cakeContract.balanceOf(accountAddress).then(
               (result) => {
                 state.auto.cake = formatCrypto(result)
 
-                get_price('pancakeswap-token').then((response) => {
-                  state.cake.usdRate = formatUsd(response, 'pancakeswap-token')
-                  state.cake.usdBalance = mulUsd(
-                    (
-                        parseFloat(state.cake.balance) +
-                        parseFloat(state.cake.stake) +
-                        parseFloat(state.cake.earned) +
-                        parseFloat(state.auto.cake)
-                    ),
-                    state.cake.usdRate,
-                  )
-                  state.cake.plnBalance = mulPln(state.cake.usdBalance)
+                cakeStakeV2Contract.userInfo(accountAddress).then(
+                  (result) => {
+                    let shares = result[0]
+                    state.cake.stakeV2 = formatCrypto(result[2])
 
-                  recalculateTotal(state.cake.usdBalance)
+                    cakeStakeV2Contract.getPricePerFullShare().then(
+                      (result) => {
+                        let stakedPlusShares = ((
+                          ethers.BigNumber.from(shares) * ethers.BigNumber.from(result) / 10**18
+                        ) / 10**18).toFixed(4)
+                        state.cake.earnedV2 = (
+                          parseFloat(stakedPlusShares) - parseFloat(state.cake.stakeV2)
+                        ).toFixed(4)
 
-                  get_tickers('pancakeswap-token').then((response) => {
-                    let market_data = response.data['market_data']
-                    state.cake.change7 = formatPercentage(market_data['price_change_percentage_7d'])
-                    state.cake.change24 = formatPercentage(market_data['price_change_percentage_24h'])
-                  })
-                })
+                        get_price('pancakeswap-token').then(
+                          (response) => {
+                            state.cake.usdRate = formatUsd(response, 'pancakeswap-token')
+
+                            // Token + V2
+                            state.cake.usdBalance = mulUsd(
+                                (
+                                    parseFloat(state.cake.balance) +
+                                    parseFloat(state.cake.stakeV2) +
+                                    parseFloat(state.cake.earnedV2) +
+                                    parseFloat(state.auto.cake)
+                                ),
+                                state.cake.usdRate,
+                            )
+                            state.cake.plnBalance = mulPln(state.cake.usdBalance)
+
+                            // V1
+                            state.cake.usdBalanceV1 = mulUsd(
+                                (
+                                    parseFloat(state.cake.stake) +
+                                    parseFloat(state.cake.earned)
+                                ),
+                                state.cake.usdRate,
+                            )
+                            state.cake.plnBalanceV1 = mulPln(state.cake.usdBalanceV1)
+
+                            // Binance
+                            state.cake.extra.usdBalance = mulUsd(
+                                state.cake.extra.balance,
+                                state.cake.usdRate,
+                            )
+                            state.cake.extra.plnBalance = mulPln(state.cake.extra.usdBalance)
+
+                            recalculateTotal(state.cake.usdBalance)
+                            recalculateTotal(state.cake.usdBalanceV1)
+                            recalculateTotal(state.cake.extra.usdBalance, 'bn2')
+
+                            get_tickers('pancakeswap-token').then((response) => {
+                              let market_data = response.data['market_data']
+                              state.cake.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+                              state.cake.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+                            })
+                          }
+                        )
+                      }
+                    )
+                  }
+                )
               }
             )
           }
@@ -450,6 +535,23 @@ get_price('polkadot').then((response) => {
     let market_data = response.data['market_data']
     state.dot.change7 = formatPercentage(market_data['price_change_percentage_7d'])
     state.dot.change24 = formatPercentage(market_data['price_change_percentage_24h'])
+  })
+})
+
+get_price('0x').then((response) => {
+  state.zrx.usdRate = formatUsd(response, '0x')
+  state.zrx.usdBalance = mulUsd(
+      state.zrx.balance,
+      state.zrx.usdRate,
+  )
+  state.zrx.plnBalance = mulPln(state.zrx.usdBalance)
+
+  recalculateTotal(state.zrx.usdBalance, 'bn2')
+
+  get_tickers('0x').then((response) => {
+    let market_data = response.data['market_data']
+    state.zrx.change7 = formatPercentage(market_data['price_change_percentage_7d'])
+    state.zrx.change24 = formatPercentage(market_data['price_change_percentage_24h'])
   })
 })
 </script>
